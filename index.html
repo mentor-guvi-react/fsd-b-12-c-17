@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> Tic Tac Toe  </title>
+        <meta charset="utf-8"  name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class=" flex items-center justify-center h-screen bg-gray-100 " >
+        <style>
+           .myplaceholder {
+               width: 60px;
+               height: 60px;
+               display: flex;
+               justify-content: center;
+               border: 1px solid #000;
+               cursor: pointer;
+               font-size: medium;
+               font-weight: bold;
+               align-items: center;
+           }
+        </style>
+
+        <div id="" class="text-center" >
+            <h1 class="text-3xl  font-bold md-6 py-4" > Tic Tac Toe </h1>
+            <div id="board " class="grid grid-rows-3 grid-cols-3 gap-4" >
+                <div id="cell1" class="myplaceholder rounded" onclick="click1()" > </div>
+                <div id="cell2" class="myplaceholder rounded" onclick="click2()" > </div>
+                <div id="cell3" class="myplaceholder rounded" onclick="click3()" > </div>
+                <div id="cell4" class="myplaceholder rounded" onclick="click4()" > </div>
+                <div id="cell5" class="myplaceholder rounded" onclick="click5()" > </div>
+                <div id="cell6" class="myplaceholder rounded" onclick="click6()" > </div>
+                <div id="cell7" class="myplaceholder rounded" onclick="click7()" > </div>
+                <div id="cell8" class="myplaceholder rounded" onclick="click8()" > </div>
+                <div id="cell9" class="myplaceholder rounded" onclick="click9()" >  </div>
+            </div>
+
+            <button id="reset" onclick="reset()" class=" mt-5 p-5 bg-blue-500 text-white rounded   " > Reset  Game </button>
+            <p id="message" class="text-2xl mt-5" > Player X Turn </p>
+        </div>
+
+        <script>
+            let currentPlayer = 'X';
+            const combo = [
+                [0,1,2],
+                [3,4,5],
+                [6,7,8],
+                [0,3,6],
+                [1,4,7],
+                [2,5,8],
+                [0,4,8],
+                [2,4,6]
+            ];
+
+            function winningCheck(){
+                
+                const cell0 = document.getElementById('cell1');
+                const cell1 = document.getElementById('cell2');
+                const cell2 = document.getElementById('cell3');
+
+                const cell3 = document.getElementById('cell4');
+                const cell4 = document.getElementById('cell5');
+                const cell5 = document.getElementById('cell6');
+
+                const cell6 = document.getElementById('cell7');
+                const cell7 = document.getElementById('cell8');
+                const cell8 = document.getElementById('cell9');
+
+                const totalCells = [cell0,cell1,cell2,cell3,cell4,cell5,cell6,cell7,cell8];
+
+                // combo.forEach(eachCombination => {
+                //     console.log(eachCombination,'eachCombination');
+                //     eachCombination.every(element =>  totalCells[element].textContent === currentPlayer ) ;
+                // });
+
+                let win = false;
+                for(let i  = 0 ; i < combo.length ; i++){
+                        // console.log(combo[i],'combo[i]');
+                        
+                        const eachCombination = combo[i]; // [0,1,2]
+                        win = true; // win is set by default and will be changed to false if any cell is not equal to currentPlayer
+                        for(let j = 0 ; j < eachCombination.length; j++ ){
+                            // console.log(eachCombination[j],'eachCombination[j]');
+                            const index = eachCombination[j];   // 0
+                            if(totalCells[index].textContent !== currentPlayer){
+                                win = false; // if any cell is not equal to currentPlayer then win is false
+                            }
+                        }
+                        if(win){
+                            // alert(`Player ${currentPlayer} Wins`);
+                            // reset();
+                            document.getElementById('message').innerText = `Player ${currentPlayer} Won`;
+                            document.getElementsByTagName('body')[0].style.backgroundColor = 'green';
+                        }
+                }
+
+                return win
+            }
+
+
+            function reset(){
+                document.getElementById('cell1').innerText = '';
+                document.getElementById('cell2').innerText = '';
+                document.getElementById('cell3').innerText = '';
+
+                document.getElementById('cell4').innerText = '';
+                document.getElementById('cell5').innerText = '';
+                document.getElementById('cell6').innerText = '';
+
+                document.getElementById('cell7').innerText = '';
+                document.getElementById('cell8').innerText = '';
+                document.getElementById('cell9').innerText = '';
+            }
+
+            function click1(){
+                // to fetch a cell by id
+                const cell1 = document.getElementById('cell1');
+                // user clicking same cell again
+                if(cell1.innerText){
+                    return;
+                }
+                // to update a text in a cell 
+                cell1.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                 // to swap current selection of X and Y
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                // To update info text for player selection
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click2(){
+                const cell2 = document.getElementById('cell2');
+                if(cell2.innerText){
+                    return;
+                }
+                cell2.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click3(){
+                const cell3 = document.getElementById('cell3');
+                if(cell3.innerText){
+                    return;
+                }
+                cell3.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click4(){
+                const cell4 = document.getElementById('cell4');
+                if(cell4.innerText){
+                    return;
+                }
+                cell4.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click5(){
+                const cell5 = document.getElementById('cell5');
+                if(cell5.innerText){
+                    return;
+                }
+                cell5.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click6(){
+                const cell6 = document.getElementById('cell6');
+                if(cell6.innerText){
+                    return;
+                }
+                cell6.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+
+            function click7(){
+                const cell7 = document.getElementById('cell7');
+                if(cell7.innerText){
+                    return;
+                }        
+                cell7.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click8(){
+                const cell8 = document.getElementById('cell8');
+                if(cell8.innerText){
+                    return;
+                }   
+                cell8.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+            function click9(){
+                const cell9 = document.getElementById('cell9');
+                if(cell9.innerText){
+                    return;
+                } 
+                cell9.innerText = currentPlayer;
+                if(winningCheck()){
+                    return;
+                }
+                if(currentPlayer === 'Y'){
+                    currentPlayer = 'X';
+                }
+                else {
+                    currentPlayer = 'Y';
+                }
+                document.getElementById('message').innerText = `Player ${currentPlayer} Turn`;
+            }
+
+            // const myCells = document.querySelectorAll('.myplaceholder');
+            // // console.log(myCells,'myCells myCells');
+
+            // myCells.forEach(cell => {
+            //     console.log(cell,'cell cell');
+            // });
+
+
+
+            // const myContainer =  document.getElementById('red-box');
+            // myContainer.addEventListener('mouseenter' , () => {
+            //     console.log('mouseenter');
+            // });
+            // const myButton = document.getElementById('my-button');
+            // myButton.addEventListener('click' , () => {
+            //     console.log('clicked my button');
+            // });
+            // myButton.addEventListener('dlbclick' , () => {
+            //     console.log('double clicked my button');
+            // });
+         </script>
+    </body>
+</html>
